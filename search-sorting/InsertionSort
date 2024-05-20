@@ -1,0 +1,22 @@
+1)Source Code:
+
+    class Solution
+    {
+        public void insertionSort(int arr[], int n)
+        {
+            for(int i=0;i<n-1;i++)
+            {
+                int j=i+1;
+                while(j>0 && arr[j-1]>arr[j])
+                {
+                    int temp=arr[j-1];
+                    arr[j-1]=arr[j];
+                    arr[j]=temp;
+                    j-=1;
+                }
+            }
+        }
+    }
+
+2)Time Complexity:O(N^2).
+3)Space Complexity:O(1).
