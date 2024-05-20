@@ -1,0 +1,38 @@
+problem:(Find Missing And Repeating).
+  Given an unsorted array Arr of size N of positive integers. One number 'A' from set {1, 2,....,N} is missing and one number 'B' occurs twice in array. Find these two numbers.
+Input:N = 2   ,Arr[] = {2, 2}
+Output:2 1
+Explaination:Repeating number is 2 and smallest positive missing number is 1.
+
+1)Use the given array to check whether the element is already traversed or not(i.e.. traverse the array,while traversing make the element at that index as -ve)
+  ->> Ex: if arr=[1,1]->> traverse the array,first element is 1 so make value at index 1 as -ve so (arr[1]=-1).
+                          when we traverse the second element,we will find the arr[1]->arr[abs(arr[i]-1) is negative.That means 1 is already present.
+						  
+2)Source code:
+
+		  class Solve {
+			int[] findTwoElement(int arr[], int n) {
+			   int[] a=new int[2];
+			   for(int i=0;i<arr.length;i++)
+			   {
+				   if(arr[Math.abs(arr[i])-1]<0)
+				   {
+					   a[0]=Math.abs(arr[i]);
+				   }
+				   else
+					arr[Math.abs(arr[i])-1]=-1*(arr[Math.abs(arr[i])-1]);
+			   }
+			   for(int i=0;i<arr.length;i++)
+			   {
+				   if(arr[i]>0)
+				   {
+					   a[1]=i+1;
+					   break;
+				   }
+			   }
+			   return a;
+			}
+		}
+		
+3)Time complexity:O(N).
+4)Space Complexity:O(1).
