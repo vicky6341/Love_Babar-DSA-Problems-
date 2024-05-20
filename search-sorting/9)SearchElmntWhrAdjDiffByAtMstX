@@ -1,0 +1,29 @@
+problem:(Searching in an array where adjacent differ by at most k)
+  A step array is an array of integers where each element has a difference of at most k with its neighbor. Given a key x, we need to find the index value of x if multiple elements exist, and return the first occurrence of the key.
+  
+Input:arr[ ] = {4, 5, 6, 7, 6}, K = 1  and X = 6
+Output:2
+Explaiantion:In an array arr 6 is present at index 2.So, return 2.
+
+1)we can solve the above problem in basic way by iterating through an array but here k(diff b/w adj elements is atmost k) so,by using this we can reduce the number of comparisions.
+   here in this case k=1 but if we go for k with high value we can increment 'i' index to [max(1,abs(a[i]-x)/k)].
+    Lets consider an array with elements {5,6,7,9,10,11}.if target element is '11'.->>>we know that diff btw '11'(target el) and '5'(first el) is 6.and if [k=2]
+	   so there may be atleast 6/2->diff/k el are btw them right? so we can increment index 0 to 0+3 while iteration.By this we can reduce comparision.
+
+2)Source Code:
+
+	   class Complete{
+		public static int search (int arr[], int n, int x, int k) {
+		   int i=0;
+		   while(i<n)
+		   {
+			   if(arr[i]==x)
+				 return i;
+			   i=i+Math.max(1,(Math.abs(arr[i]-x))/k);
+		   }
+		   return -1;
+		}
+	}
+
+2)Time Complexity:O(N).
+3)Space Complexity:O(1).

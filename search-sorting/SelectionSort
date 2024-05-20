@@ -1,0 +1,29 @@
+1)Consider an array {4,1,3,9,7}.
+     step-1: swap a[0] with min(arr[0],arr->1 to n-1).i.e.. in this case ,swap 4 with 1(min of {1,3,9,7}).
+     step-2: swap a[1] with min(arr[1],arr->2 to n-1).i.e.. in this case ,swap 4 with 3(min of {3,9,7}).
+     step-3: swap a[2] with min(arr[2],arr->3 to n-1).i.e.. in this case ,there is no min value than 4 out of {9,7}.
+     step-4: swap a[3] with min(arr[3],arr->4).i.e.. in this case,9 will be swapped with 7.
+
+2)Source Code:
+
+    class Solution
+    {
+        void selectionSort(int arr[], int n)
+        {
+            for(int i=0;i<n-1;i++)
+            {
+                int min_ind=i;
+                for(int j=i+1;j<n;j++)
+                {
+                    if(arr[j]<arr[min_ind])
+                    min_ind=j;
+                }
+                int temp=arr[i];
+                arr[i]=arr[min_ind];
+                arr[min_ind]=temp;
+            }
+        }
+    }
+
+3)Time Complexity:O(N^2).
+4)Space Complexity:O(1).
