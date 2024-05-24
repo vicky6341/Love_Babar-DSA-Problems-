@@ -1,0 +1,58 @@
+Merge two sorted arrays without extra space:
+   
+   (Using GAP Method):
+   1)First we have to find gap of two pointers in first iteration.i.e.. gap=(len(arr1)+len(arr2))/2
+      and then place first pointer at 0 and second pointer at 0+gap
+   2) and then loop two arrays until second pointer exceeds limit i.e. j<len(arr1)+len(arr2).
+   3)in the above loop there are three conditions.
+      ->if first pointer is in first array and second pointer is in second array.
+	  ->if both are in first array.
+	  ->if both are in second array.
+   4)based on these conditions,we have to pass arrays to the swap function.
+     i.e.. if both are in first array , we have to pass arr1 as parameters to swap function.and loop until gap>0.
+
+2)Source Code:
+  
+			class Solution
+			{
+				//Function to merge the arrays.
+				public static void merge(long arr1[], long arr2[], int n, int m) 
+				{
+					int gap=((n+m)/2)+((n+m)%2);
+					while(gap>0)
+					{
+						int i=0,j=i+gap;
+						while(j<n+m)
+						{
+							if(i<n && j>=n)
+							{
+							  swap(arr1,arr2,i,j-n);  
+							}
+							else if(i>=n && j>=n)
+							{
+							   swap(arr2,arr2,i-n,j-n); 
+							}
+							else
+							{
+								swap(arr1,arr1,i,j);
+							}
+							i+=1;
+							j+=1;
+						}
+						if(gap==1)break;
+						gap=(gap/2)+(gap%2);
+					}
+				}
+				public static void swap(long[] arr1,long[] arr2,int i,int j)
+				{
+					if(arr1[i]>arr2[j])
+					{
+						long temp=arr1[i];
+						arr1[i]=arr2[j];
+						arr2[j]=temp;
+					}
+				}
+			}
+			
+3)Time complexity:(n+m)*O(n+m)
+4)Space Complexity:O(1)
