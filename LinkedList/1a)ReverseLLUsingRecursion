@@ -1,0 +1,21 @@
+1)Source Code:
+
+            class Solution
+            {
+                //Function to reverse a linked list.
+                Node reverseList(Node head)
+                {
+                Node temp=head,curr=head,prev=null;
+                while(curr!=null)
+                {
+                    temp=curr.next;
+                    curr.next=prev;
+                    prev=curr;
+                    curr=temp;
+                }
+                return prev;
+                }
+            }
+        
+2)Time Complexity:O(N)
+3)Space Complexity:O(1)
