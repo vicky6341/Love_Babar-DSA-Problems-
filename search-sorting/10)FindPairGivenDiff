@@ -1,0 +1,40 @@
+problem:(Find Pair Given Difference).
+
+ Given an array arr[] of size n and an integer x, return 1 if there exists a pair of elements in the array whose absolute difference is x, otherwise, return -1.
+ 
+ Input: n = 6,x = 78,arr[] = {5, 20, 3, 2, 5, 80}
+ Output: 1
+ Explanation: Pair (2, 80) have absolute difference of 78.
+ 
+ 1)sort the array and check the element with value (x+a[i]) using binary search.
+ 
+ 2)Source Code:
+ 
+				class Solution {
+				public int findPair(int n, int x, int[] arr) {
+					Arrays.sort(arr);
+					for(int i=0;i<n-1;i++)
+					{
+						if(find(arr,i+1,n-1,x+arr[i]))
+						  return 1;
+					}
+					return -1;
+				}
+				public static boolean find(int[] arr,int l,int h,int x)
+				{
+					while(l<=h)
+					{
+						int mid=(l+h)/2;
+						if(arr[mid]==x)
+						  return true;
+						else if(arr[mid]<x)
+						  l=mid+1;
+						else
+						  h=mid-1;
+					}
+					return false;
+				}
+			}
+
+ 3)Time Complexity:O(nlogn).
+ 4)Space Complexity: O(1).
