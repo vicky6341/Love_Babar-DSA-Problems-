@@ -1,0 +1,58 @@
+problem:(Add 1 to a number represented as linked list)
+
+A number N is represented in Linked List such that each digit corresponds to a node in linked list. You need to add 1 to it.
+
+Input:
+LinkedList: 4->5->6
+Output: 457
+Explanation: 4->5->6 represents 456 and when 1 is added it becomes 457. 
+
+1)Source Code:
+   
+            class Solution
+            {
+                public static Node addOne(Node head) 
+                { 
+                    Node nhead=reverse(head);
+                    Node temp=nhead;
+                    int c=1;
+                    Node prev=null;
+                    while(temp!=null)
+                    {
+                        c=c+temp.data;
+                        if(c>=10)
+                        temp.data=c%10;
+                        else
+                        {
+                            temp.data=c;
+                            c=0;
+                            break;
+                        }
+                        c=c/10;
+                        prev=temp;
+                        temp=temp.next;
+                    }
+                    if(c!=0)
+                    {
+                        Node n=new Node(c);
+                        prev.next=n;
+                    }
+                    nhead=reverse(nhead);
+                    return nhead;
+                }
+                public static Node reverse(Node head)
+                {
+                    Node prev=null,curr=head,temp=head;
+                    while(curr!=null)
+                    {
+                        temp=curr.next;
+                        curr.next=prev;
+                        prev=curr;
+                        curr=temp;
+                    }
+                    return prev;
+                }
+            }
+        
+2)Time Complexity:O(N)
+3)Space Complexity:O(1)
