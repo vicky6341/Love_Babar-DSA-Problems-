@@ -1,0 +1,81 @@
+problem:(Add two numbers represented by linked lists)
+
+Given two numbers, num1 and num2, represented by linked lists of size n and m respectively. The task is to return a linked list that represents the sum of these two numbers.
+For example, the number 190 will be represented by the linked list, 1->9->0->null, similarly 25 by 2->5->null. Sum of these two numbers is 190 + 25 = 215, which will be represented by 2->1->5->null. You are required to return the head of the linked list 2->1->5->null.
+Note: There can be leading zeros in the input lists, but there should not be any leading zeros in the output list.
+
+Input:
+n = 2
+num1 = 45 (4->5->null)
+m = 3
+num2 = 345 (3->4->5->null)
+Output: 
+3->9->0->null  
+Explanation: 
+For the given two linked list (4 5) and (3 4 5), after adding the two linked list resultant linked list will be (3 9 0).
+
+1)Source Code:
+
+                class Solution{
+                    //Function to add two numbers represented by linked list.
+                    static Node addTwoLists(Node num1, Node num2){
+                        Node temp1=reverse(num1);
+                        Node temp2=reverse(num2);
+                        int c=0;
+                        Node prev=null,head=null;
+                        while(temp1!=null || temp2!=null)
+                        {
+                            c=temp1==null?c+temp2.data+0:temp2==null?c+temp1.data+0:c+temp1.data+temp2.data;
+                            if(c>=10)
+                            {
+                                Node temp=new Node(c%10);
+                                if(prev!=null)prev.next=temp;
+                                else head=temp;
+                                prev=temp;
+                                c=c/10;
+                            }
+                            else
+                            {
+                            Node temp=new Node(c);
+                            if(prev!=null)prev.next=temp;
+                            else head=temp;
+                            prev=temp;
+                            c=0;
+                            }
+                            if(temp1!=null)temp1=temp1.next;
+                            if(temp2!=null)temp2=temp2.next;
+                        }
+                        if(c>0)
+                        {
+                            Node n=new Node(c);
+                            prev.next=n;
+                            prev=n;
+                        }
+                    head=reverse(head);
+                    Node temp=head;
+                    while(temp!=null)
+                    {
+                        if(temp.data==0 && temp==head)
+                            head=temp.next;
+                        else 
+                            break;
+                        temp=temp.next;
+                    }
+                        return head==null?new Node(0):head;
+                    }
+                    public static Node reverse(Node node)
+                    {
+                        Node temp=node,curr=node,prev=null;
+                        while(curr!=null)
+                        {
+                            temp=curr.next;
+                            curr.next=prev;
+                            prev=curr;
+                            curr=temp;
+                        }
+                        return prev;
+                    }
+                }
+        
+2)Expected Time Complexity: O(n+m)
+3)Expected Auxiliary Space: O(max(n,m)) for the resultant list.
