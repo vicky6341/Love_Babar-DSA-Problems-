@@ -1,0 +1,38 @@
+problem:(Intersection of two sorted Linked lists)
+
+Given two linked lists sorted in increasing order, create a new linked list representing the intersection of the two linked lists. The new linked list should be made with without changing the original lists.
+Note: The elements of the linked list are not necessarily distinct.
+
+1)Source Code:
+
+                class Solution
+                {
+                public static Node findIntersection(Node head1, Node head2)
+                    {
+                        Node temp1=head1;
+                        Node temp2=head2;
+                        Node prev=null,head=null;
+                        while(temp1!=null && temp2!=null)
+                        {
+                            if(temp1.data<temp2.data)
+                            temp1=temp1.next;
+                            else if(temp1.data>temp2.data)
+                            temp2=temp2.next;
+                            else
+                            {
+                                Node temp=new Node(temp1.data);
+                                if(head==null)
+                                head=temp;
+                                else
+                                prev.next=temp;
+                                prev=temp;
+                                temp1=temp1.next;
+                                temp2=temp2.next;
+                            }
+                        }
+                        return head;
+                    }
+                }
+
+2)Time Complexity:O(n+m)
+3)Space Complexity:O(n+m)
