@@ -1,0 +1,43 @@
+1)pick a pivot(this can be any index in an array i.e.. index can first or last or any index in an array).
+2)and set that pivot element in array at correct place i.e.. the elmnts that are less than pivot elmnt are on left and those are greater are on right.
+
+3)Source Code:
+
+                class Solution
+                {
+                    //Function to sort an array using quick sort algorithm.
+                    static void quickSort(int arr[], int low, int high)
+                    {
+                    if(low<high)
+                    {
+                        int p=partition(arr,low,high);
+                        quickSort(arr,low,p-1);
+                        quickSort(arr,p+1,high);
+                    }
+                    }
+                    static int partition(int arr[], int low, int high)
+                    {
+                        int p=low;
+                        int i=low,j=high;
+                        while(i<j)
+                        {
+                        while(arr[i]<=arr[p] && i<j)
+                            i+=1;
+                        while(arr[j]>=arr[p] && j>=i)
+                            j-=1;
+                        if(i<j)
+                        {
+                            int temp=arr[i];
+                            arr[i]=arr[j];
+                            arr[j]=temp;
+                        }
+                        }
+                        int temp=arr[p];
+                        arr[p]=arr[j];
+                        arr[j]=temp;
+                        return j;
+                    } 
+                }
+
+4)Time Complexity:O(N*logN)
+5)Space Complexity:O(logN)
