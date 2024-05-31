@@ -1,0 +1,63 @@
+problem:(Deletion and Reverse in Linked List)
+ Given a Circular Linked List of size N. The task is to delete the given node in the circular linked list and then print the reverse of the circular linked list.
+
+
+Input:
+5
+2 5 7 8 10
+8
+
+Output:
+10 7 5 2
+Explanation: 
+After deleting 8 from the given circular linked 
+list, it has elements as 2, 5, 7, 10. Now, 
+reversing this list will result in 10, 7, 5, 2.
+
+1)Source Code:
+
+                    class GFG
+                    {
+                        //This method returns the head of the LL after deleting node with value d.
+                        public static Node deleteNode(Node head,int d)
+                        {
+                            Node temp=head,prev=head;
+                            while(prev.next!=head)
+                            prev=prev.next;
+                            while(true)
+                            {
+                            if(temp.data==d && temp==head)
+                            {
+                                prev.next=temp.next;
+                                head=temp.next;
+                                break;
+                            }
+                            else if(temp.data==d)
+                            {
+                                prev.next=temp.next;
+                                break;
+                            }
+                            prev=temp;
+                            temp=temp.next;
+                            }
+                            return head;
+                        }
+                        //This method returns the head node of the reversed Linked list.
+                        public static Node reverse(Node head)
+                        {
+                        Node curr=head,prev=null,temp=head;
+                        while(true)
+                        {
+                            temp=curr.next;
+                            curr.next=prev;
+                            prev=curr;
+                            curr=temp;
+                            if(curr==head)
+                            break;
+                        }
+                        head.next=prev;
+                        head=prev;
+                        return head;
+                        }
+                    }
+
