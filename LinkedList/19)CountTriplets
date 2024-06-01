@@ -1,0 +1,44 @@
+problem:(Count Triplets)
+
+Given a sorted linked list of distinct nodes (no two nodes have the same data) and an integer X. Count distinct triplets in the list that sum up to given integer X.
+Note: The Linked List is sorted in descending order.
+
+Input: LinkedList: 9->8->6->5->4->2->1,  X = 17
+Output: 2
+Explanation: Distinct triplets are (2, 6, 9) 
+and (4, 5, 8) which have sum equal to X i.e 17.
+
+1)Source Code:
+  
+                class Solve
+                {
+                    static int countTriplets(Node head, int x) 
+                    { 
+                        Node temp1=head;
+                        int c=0;
+                        while(temp1.next!=null)
+                        {
+                            HashMap<Integer,Integer> h=new HashMap<>();
+                            Node temp2=temp1.next;
+                            while(temp2!=null)
+                            {
+                                    int n=x-(temp1.data+temp2.data);
+                                    if(h.containsKey(n))
+                                    {
+                                        c+=1;
+                                        temp2=temp2.next;
+                                    }
+                                    else
+                                    {
+                                        h.put(temp2.data,1);
+                                        temp2=temp2.next;
+                                    }
+                            }
+                            temp1=temp1.next;
+                        }
+                        return c;
+                    } 
+                }
+
+2)Time Complexity:O(N^2)
+3)Space Complexity:O(N).
