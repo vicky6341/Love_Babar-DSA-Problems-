@@ -1,0 +1,52 @@
+problem:(N meetings in one room)
+   There is one meeting room in a firm. There are N meetings in the form of (start[i], end[i]) where start[i] is start time of meeting i and end[i] is finish time of meeting i.
+What is the maximum number of meetings that can be accommodated in the meeting room when only one meeting can be held in the meeting room at a particular time?
+
+Note: Start time of one chosen meeting can't be equal to the end time of the other chosen meeting.
+
+Input:
+N = 6
+start[] = {1,3,0,5,8,5}
+end[] =  {2,4,6,7,9,9}
+Output: 
+4
+Explanation:
+Maximum four meetings can be held with
+given start and end timings.
+The meetings are - (1, 2),(3, 4), (5,7) and (8,9)
+
+1)Source Code:
+
+                    class Solution 
+                    {
+                        //Function to find the maximum number of meetings that can
+                        //be performed in a meeting room.
+                        public static int maxMeetings(int start[], int end[], int n)
+                        {
+                            ArrayList<ArrayList<Integer>> l=new ArrayList<>();
+                            for(int i=0;i<n;i++)
+                            {
+                                ArrayList<Integer> l1=new ArrayList<>();
+                                l1.add(start[i]);
+                                l1.add(end[i]);
+                                l.add(l1);
+                            }
+                            Collections.sort(l,new Comparator<ArrayList<Integer>>(){
+                                @Override
+                                public int compare(ArrayList<Integer> l1,ArrayList<Integer> l2)
+                                {
+                                    return l1.get(1)-l2.get(1);
+                                }
+                            });
+                            int c=0,k=0;
+                            for(ArrayList<Integer> l1:l)
+                            {
+                            if(k<l1.get(0))
+                            {
+                                k=l1.get(1);
+                                c+=1;
+                            }
+                            }
+                            return c;
+                        }
+                    }
