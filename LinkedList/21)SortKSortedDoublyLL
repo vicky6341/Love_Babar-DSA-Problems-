@@ -1,0 +1,52 @@
+problem:(Sort a k sorted doubly linked list)
+   Given a doubly linked list containing N nodes, where each node is at most K-indices away from its target position in the list. The problem is to sort the given doubly linked list. The distance can be assumed in either of the directions (left and right).
+
+Input:  3 <-> 2 <-> 1 <-> 5 <-> 6 <-> 4
+K = 2
+Output: 1 <-> 2 <-> 3 <-> 4 <-> 5 <-> 6
+Explanation: 
+After sorting the given 2 sorted
+list is 1 <-> 2 <-> 3 <-> 4 <-> 5 <-> 6.
+
+1)Source Code:
+
+                    class Solution {
+                    public Node sortAKSortedDLL(Node head, int k) {
+                        
+                        PriorityQueue<Node> pq=new PriorityQueue<>(new Comparator<Node>(){
+                            @Override
+                            public int compare(Node n1,Node n2)
+                            {
+                                return n1.data-n2.data;
+                            }
+                        });
+                        for(int i=0;head!=null && i<=k;i++)
+                        {
+                            pq.add(head);
+                            head=head.next;
+                        }
+                        Node nhead=null,curr=null;
+                        while(!pq.isEmpty())
+                        {
+                            if(nhead==null)
+                            {
+                                nhead=pq.peek();
+                                curr=nhead;
+                            }
+                            else 
+                            {
+                                curr.next=pq.peek();
+                                curr.next.prev=curr;
+                                curr=pq.peek();
+                            }
+                            pq.poll();
+                            if(head!=null)
+                            {
+                                pq.add(head);
+                                head=head.next;
+                            }
+                        }
+                        curr.next=null;
+                        return nhead;
+                    }
+                }
