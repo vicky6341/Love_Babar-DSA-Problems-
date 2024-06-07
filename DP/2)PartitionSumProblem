@@ -1,0 +1,41 @@
+problem:(Partition Equal Subset Sum)
+   Given an array arr[] of size N, check if it can be partitioned into two parts such that the sum of elements in both parts is the same.
+
+Input: N = 4
+arr = {1, 5, 11, 5}
+Output: YES
+Explanation: 
+The two parts are {1, 5, 5} and {11}.
+
+1)Source Code:
+
+            class Solution{
+                static int equalPartition(int N, int arr[])
+                {
+                    int s=0;
+                    for(int n:arr)
+                    s+=n;
+                    if(s%2!=0)
+                    return 0;
+                    s=s/2;
+                    boolean[][] dp=new boolean[N+1][s+1];
+                    for(int i=0;i<=N;i++)
+                    dp[i][0]=true;
+                    for(int j=1;j<=s;j++)
+                    dp[0][j]=false;
+                    for(int i=1;i<=N;i++)
+                    {
+                        for(int j=1;j<=s;j++)
+                        {
+                            if(arr[i-1]>j)
+                            dp[i][j]=dp[i-1][j];
+                            else
+                            dp[i][j]=dp[i-1][j] || dp[i-1][j-arr[i-1]];
+                        }
+                    }
+                    if(dp[N][s]==true)
+                    return 1;
+                    else
+                    return 0;
+                }
+            }
