@@ -1,0 +1,29 @@
+1)while adding to the queue,you have to mark that node as visited.(most imp)
+2)Source Code:
+ 
+                class Solution {
+                    // Function to return Breadth First Traversal of given graph.
+                    public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+                        LinkedList<Integer> l=new LinkedList<>();
+                        int[] vis=new int[V];
+                        for(int i=0;i<V;i++)
+                        vis[i]=0;
+                        l.add(0);
+                        vis[0]=1;
+                        ArrayList<Integer> res=new ArrayList<>();
+                        while(!l.isEmpty())
+                        {
+                            int k=l.removeFirst();
+                            res.add(k);
+                            for(int n:adj.get(k))
+                            {
+                                if(vis[n]==0)
+                                {
+                                    vis[n]=1;
+                                    l.add(n);
+                                }
+                            }
+                        }
+                        return res;
+                    }
+                }
