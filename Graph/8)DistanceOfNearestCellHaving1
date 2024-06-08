@@ -1,0 +1,55 @@
+
+class Pair
+{
+    int i;
+    int j;
+    int d;
+    Pair(int i,int j,int d)
+    {
+        this.i=i;
+        this.j=j;
+        this.d=d;
+    }
+}
+class Solution
+{
+    //Function to find distance of nearest 1 in the grid for each cell.
+    public int[][] nearest(int[][] grid)
+    {
+       LinkedList<Pair> l=new LinkedList<>();
+       int m=grid.length;
+       int n=grid[0].length;
+       int[][] grid1=new int[m][n];
+       for(int i=0;i<m;i++)
+        for(int j=0;j<n;j++)
+          grid1[i][j]=grid[i][j];
+          
+       for(int i=0;i<m;i++)
+         for(int j=0;j<n;j++)
+            if(grid1[i][j]==1)
+              l.add(new Pair(i,j,0));
+        
+       while(!l.isEmpty())
+       {
+           Pair p=l.removeFirst();
+           int i=p.i;
+           int j=p.j;
+           int d=p.d;
+           if(grid1[i][j]==0)
+             grid1[i][j]=d;
+            if(i-1>=0 && i<m && j>=0 && j<n && grid1[i-1][j]==0) l.add(new Pair(i-1,j,d+1));
+            if(i+1>=0 && i+1<m && j>=0 && j<n && grid1[i+1][j]==0)l.add(new Pair(i+1,j,d+1));
+            if(i>=0 && i<m && j-1>=0 && j-1<n && grid1[i][j-1]==0)l.add(new Pair(i,j-1,d+1));
+            if(i>=0 && i<m && j+1>=0 && j+1<n && grid1[i][j+1]==0) l.add(new Pair(i,j+1,d+1));
+       }
+       for(int i=0;i<m;i++)
+       {
+           for(int j=0;j<n;j++)
+           {
+               if(grid[i][j]==1)
+                 grid1[i][j]=0;
+           }
+       }
+       return grid1;
+    }
+}
