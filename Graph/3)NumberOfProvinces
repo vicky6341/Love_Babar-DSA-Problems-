@@ -1,0 +1,46 @@
+problem:(Number of Provinces)
+  Given an undirected graph with V vertices. We say two vertices u and v belong to a single province if there is a path from u to v or v to u. Your task is to find the number of provinces.
+Note: A province is a group of directly or indirectly connected cities and no other cities outside of the group.
+
+1)Source Code:
+    
+                class Solution {
+                static int numProvinces(ArrayList<ArrayList<Integer>> adj, int V) {
+                    ArrayList<ArrayList<Integer>> l=new ArrayList<>();
+                    for(int i=0;i<V;i++)
+                    l.add(new ArrayList<Integer>());
+                    for(int i=0;i<adj.size();i++)
+                    {
+                        for(int j=0;j<adj.get(0).size();j++)
+                        {
+                            if(adj.get(i).get(j)==1 && i!=j)
+                            {
+                                l.get(i).add(j);
+                                l.get(j).add(i);
+                            }
+                        }
+                    }
+                    int[] vis=new int[V+1];
+                    for(int i=0;i<V;i++)
+                    vis[i]=0;
+                    int c=0;
+                    for(int i=0;i<V;i++)
+                    {
+                        if(vis[i]==0)
+                        {
+                            c+=1;
+                            dfs(vis,l,i);
+                        }
+                    }
+                    return c;
+                }
+                public static void dfs(int[] vis,ArrayList<ArrayList<Integer>> l,int nd)
+                {
+                    vis[nd]=1;
+                    for(int n:l.get(nd))
+                    {
+                        if(vis[n]==0)
+                        dfs(vis,l,n);
+                    }
+                }
+            };
