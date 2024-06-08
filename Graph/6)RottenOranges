@@ -1,0 +1,57 @@
+class Pair
+{
+    int i;
+    int j;
+    int t;
+    Pair(int i,int j,int t)
+    {
+        this.i=i;
+        this.j=j;
+        this.t=t;
+    }
+}
+class Solution
+{
+    //Function to find minimum time required to rot all oranges. 
+    public int orangesRotting(int[][] grid)
+    {
+        LinkedList<Pair> l=new LinkedList<>();
+        int maxt=0;
+        int m=grid.length;
+        int n=grid[0].length;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]==2)
+                  l.add(new Pair(i,j,0)); 
+            }
+        }
+        while(!l.isEmpty())
+        {
+            Pair p=l.removeFirst();
+            int i=p.i;
+            int j=p.j;
+            int t=p.t;
+            if(maxt<t)
+              maxt=t;
+            if(i-1>=0 && i-1<m && j>=0 && j<n && grid[i-1][j]==1)
+             { grid[i-1][j]=2;l.add(new Pair(i-1,j,t+1));}
+            if(i+1>=0 && i+1<m && j>=0 && j<n && grid[i+1][j]==1)
+             { grid[i+1][j]=2;l.add(new Pair(i+1,j,t+1));}
+            if(i>=0 && i<m && j-1>=0 && j-1<n && grid[i][j-1]==1)
+             { grid[i][j-1]=2;l.add(new Pair(i,j-1,t+1));}
+            if(i>=0 && i<m && j+1>=0 && j+1<n && grid[i][j+1]==1)
+             { grid[i][j+1]=2;l.add(new Pair(i,j+1,t+1));}
+        }
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]==1)
+                 return -1;
+            }
+        }
+        return maxt;
+    }
+}
