@@ -1,0 +1,34 @@
+
+
+class Solution {
+
+public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+    
+    HashMap<Integer, Integer> visited = new HashMap<>();
+    
+    for (int i = 0; i < V; i++) {
+        if (!visited.containsKey(i)) {
+            Queue<Integer> queue = new LinkedList<>();
+            queue.add(i);
+            visited.put(i, -1);
+    
+            while (!queue.isEmpty()) {
+                int top = queue.poll();
+    
+                for (int p : adj.get(top)) {
+                    if (visited.containsKey(p) && p != visited.get(top)) {
+                        return true;
+                    }
+                    if (!visited.containsKey(p)) {
+                        queue.add(p);
+                        visited.put(p, top);
+                    }
+                }
+            }
+        }
+    }
+    
+    return false;
+}
+
+}
