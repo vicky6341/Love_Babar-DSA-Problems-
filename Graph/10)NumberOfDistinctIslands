@@ -1,0 +1,38 @@
+class Solution {
+
+    int countDistinctIslands(int[][] grid) {
+        int m=grid.length;
+        int n=grid[0].length;
+        int[][] vis=new int[m][n];
+        for(int i=0;i<m;i++)
+         for(int j=0;j<n;j++)
+           vis[i][j]=0;
+        HashSet<ArrayList<String>> s=new HashSet<>();
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(vis[i][j]==0 && grid[i][j]==1)
+                {
+                    ArrayList<String> l=new ArrayList<>();
+                    dfs(i,j,i,j,grid,vis,l);
+                    s.add(l);
+                }
+            }
+        }
+        return s.size();
+    }
+    public static String toString(int r,int c)
+    {
+        return r+" "+c;
+    }
+    public static void dfs(int i,int j,int bi,int bj,int[][] grid,int[][] vis,ArrayList<String> l)
+    {
+        vis[i][j]=1;
+        l.add(toString(i-bi,j-bj));
+        if(i-1>=0 && i-1<grid.length && j>=0 && j<grid[0].length && grid[i-1][j]==1 && vis[i-1][j]==0)dfs(i-1,j,bi,bj,grid,vis,l);
+        if(i+1>=0 && i+1<grid.length && j>=0 && j<grid[0].length && grid[i+1][j]==1 && vis[i+1][j]==0)dfs(i+1,j,bi,bj,grid,vis,l);
+        if(i>=0 && i<grid.length && j-1>=0 && j-1<grid[0].length && grid[i][j-1]==1 && vis[i][j-1]==0)dfs(i,j-1,bi,bj,grid,vis,l);
+        if(i>=0 && i<grid.length && j+1>=0 && j+1<grid[0].length && grid[i][j+1]==1 && vis[i][j+1]==0)dfs(i,j+1,bi,bj,grid,vis,l);
+    }
+}
