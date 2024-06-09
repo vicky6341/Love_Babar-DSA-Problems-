@@ -1,0 +1,20 @@
+ while(!l.isEmpty())
+        {
+            int r=l.removeFirst();
+            for(int k:adj.get(r))
+            {
+                if(vis[k]==-1 && vis[r]==0)
+                {
+                    vis[k]=1;
+                    l.add(k);
+                }
+                else if(vis[k]==-1 && vis[r]==1)
+                {
+                    vis[k]=0;
+                    l.add(k);
+                }
+                else if(vis[k]==vis[r])
+                  return false;
+            }
+        }
+        return true;
