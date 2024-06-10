@@ -1,0 +1,89 @@
+//{ Driver Code Starts
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Main {
+	public static void main(String[] args) throws IOException {
+		Scanner sc = new Scanner(System.in);
+		int T = sc.nextInt();
+		while (T-- > 0) {
+			int n = sc.nextInt();
+			int m = sc.nextInt();
+			int[][] edge = new int[m][3];
+			for (int i = 0; i < m; i++) {
+				edge[i][0] = sc.nextInt();
+				edge[i][1] = sc.nextInt();
+				edge[i][2] = sc.nextInt();
+			}
+			Solution obj = new Solution();
+			int res[] = obj.shortestPath(n, m,edge);
+			for (int i = 0; i < n; i++) {
+				System.out.print(res[i] + " ");
+			}
+			System.out.println();
+		}
+	}
+}
+// } Driver Code Ends
+
+class Pair
+{
+    int i;
+    int d;
+    Pair(int i,int d)
+    {
+        this.i=i;
+        this.d=d;
+    }
+}
+//User function Template for Java
+class Solution {
+
+	public int[] shortestPath(int N,int M, int[][] edges) {
+		ArrayList<ArrayList<Pair>> adj=new ArrayList<>();
+		for(int i=0;i<N;i++)
+		  adj.add(new ArrayList<Pair>());
+	    for(int[] ed:edges)
+	    {
+	        adj.get(ed[0]).add(new Pair(ed[1],ed[2]));
+	    }
+	    Stack<Integer> st=new Stack<>();
+	    int[] vis=new int[N];
+	    for(int i=0;i<N;i++)
+	    {
+	        if(vis[i]==0)
+	          dfs(i,vis,adj,st);
+	    }
+	    int[] dis=new int[N];
+	    for(int i=0;i<N;i++)
+	      dis[i]=(int)Math.exp(9d)-100;
+	    dis[0]=0;
+	    while(!st.isEmpty())
+	    {
+	        int k=st.pop();
+	        for(Pair p:adj.get(k))
+	        {
+	            if(p.d+dis[k]<dis[p.i])
+	              dis[p.i]=p.d+dis[k];
+	        }
+	    }
+	    for(int i=0;i<N;i++)
+	    {
+	        if(dis[i]>=5000)
+	          dis[i]=-1;
+	    }
+	    return dis;
+	}
+	public static void dfs(int i,int[] vis,ArrayList<ArrayList<Pair>> adj,Stack<Integer> st)
+	{
+	    vis[i]=1;
+	    for(int k=0;k<adj.get(i).size();k++)
+	    {
+	        int  n=adj.get(i).get(k).i;
+	        if(vis[n]==0)
+	          dfs(n,vis,adj,st);
+	    }
+	    st.push(i);
+	}
+}
