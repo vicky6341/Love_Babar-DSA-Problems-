@@ -1,0 +1,81 @@
+//{ Driver Code Starts
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+        while (T-- > 0) {
+            int n = sc.nextInt();
+            int m=sc.nextInt();
+            int[][] edge = new int[m][2];
+            for(int i=0;i<m;i++){
+                edge[i][0]=sc.nextInt();
+                edge[i][1]=sc.nextInt();
+            }
+            int src=sc.nextInt();
+            Solution obj = new Solution();
+            int res[] = obj.shortestPath(edge,n,m,src);
+            for(int i=0;i<n;i++){
+                System.out.print(res[i]+" ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+// } Driver Code Ends
+
+class Pair
+{
+    int i;
+    int d;
+    Pair(int i,int d)
+    {
+        this.i=i;
+        this.d=d;
+    }
+}
+class Solution {
+    
+    public int[] shortestPath(int[][] edges,int n,int m ,int src) {
+       ArrayList<ArrayList<Integer>> adj=new ArrayList<>();
+       for(int i=0;i<n;i++)
+         adj.add(new ArrayList<Integer>());
+       for(int[] ed:edges)
+       {
+           adj.get(ed[0]).add(ed[1]);
+           adj.get(ed[1]).add(ed[0]);
+       }
+       LinkedList<Pair> l=new LinkedList<>();
+       l.add(new Pair(src,0));
+       int[] dis=new int[n];
+       for(int i=0;i<n;i++)
+         dis[i]=Integer.MAX_VALUE;
+        int[] vis=new int[n];
+        for(int i=0;i<n;i++)
+          vis[i]=0;
+       while(!l.isEmpty())
+       {
+           Pair p=l.removeFirst();
+           if(dis[p.i]>p.d)
+             dis[p.i]=p.d;
+           for(int k:adj.get(p.i))
+           {
+               if(vis[k]==0)
+               {
+                   vis[k]=1;
+                   l.add(new Pair(k,dis[p.i]+1));
+               }
+           }
+       }
+       for(int i=0;i<n;i++)
+       {
+           if(dis[i]>50000)
+             dis[i]=-1;
+       }
+       return dis;
+    }
+}
