@@ -1,0 +1,7 @@
+Strings:
+ 
+ 1)Find one string is rotation of other string.
+            (or)                                                              --->KMP(KNUTH MORRIS PRATT) ALGORITHM.(Source:https://youtu.be/GTJr8OvyEVQ?si=HJv1NCKYq3lEjtzP)
+   Find given substring(pattern) is present in the target string or not.
+    
+ 
